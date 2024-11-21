@@ -182,7 +182,7 @@ end
 
 --creation on hover stuff
 function Binder_CreateButton_Details(tt, ldb)
-	tt:SetText("This will create a new Keybind Profile with|nthe inputed name using your current Keybinds.|n(Description is optional)")
+	tt:SetText("Создаст новый профиль привязок с|nуказанным именем, используя текущие привязки.|n(Описание необязательно)")
 end
 
 function Binder_CreateButton_OnEnter(self)
@@ -307,7 +307,7 @@ function Binder_MinimapButton_OnEnter(self)
 end
 
 function Binder_MinimapButton_Details(tt, ldb)
-	tt:SetText("Binder|n|nLeft Click: Open Frame|nRight Click: Drag)")
+	tt:SetText("Binder|n|nЛевый клик: Открыть окно|nПравый клик: Перетащить")
 end
 
 function Minimap_Reset(arg1)
@@ -317,7 +317,7 @@ function Minimap_Reset(arg1)
 end
 
 function Minimap_Reset_Details(tt, ldb)
-	tt:SetText("Will reset the position of the|nminimap button to center screen")
+	tt:SetText("Вернет кнопку у миникарты|nв центр экрана")
 end
 
 function Minimap_Reset_OnEnter(self)
@@ -411,7 +411,7 @@ function Apply_Button_OnUpdate()
 end
 
 function Binder_ApplyButton_Details(tt, ldb)
-	tt:SetText("This Button will Apply|nthe currently selected|nBinder profile")
+	tt:SetText("Эта кнопка применит|nвыбранный профиль|nпривязок")
 end
 
 function Binder_ApplyButton_OnEnter(self)
@@ -448,7 +448,7 @@ function Update_Button_OnUpdate()
 end
 
 function Binder_UpdateButton_Details(tt, ldb)
-	tt:SetText("This Button will Update|nthe Bindings of the currently|nselected Binder profile")
+	tt:SetText("Эта кнопка обновит|nпривязки в текущем|nвыбранном профиле")
 end
 
 function Binder_UpdateButton_OnEnter(self)
@@ -461,7 +461,7 @@ end
 
 --Stuff for the Delete Button
 function Binder_DeleteButton_Details(tt, ldb)
-	tt:SetText("WARNING!!! If you delete a|nprofile, you CANNOT get it back|n|nSo be careful...")
+	tt:SetText("ВНИМАНИЕ!!! Если вы удалите|nпрофиль, его НЕЛЬЗЯ будет восстановить|n|nБудьте осторожны...")
 end
 
 function Binder_DeleteButton_OnEnter(self)
@@ -529,7 +529,7 @@ function DeleteAll_Button_OnUpdate()
 end
 
 function Close_Button_Details(tt, ldb)
-	tt:SetText("Close")
+	tt:SetText("Закрыть")
 end
 
 function Close_Button_OnEnter(self)
@@ -541,6 +541,7 @@ function Close_Button_OnEnter(self)
 end
 
 
+--**************************************************************************************
 --**************************************************************************************
 --**************************************************************************************
 --**************************************************************************************
