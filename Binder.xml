@@ -2,9 +2,9 @@
 <!-- Thanks to all the wonderful help from fara.webeddie.com/frames and the great tutorial found there -->
 
 
-<Ui>xmlns="http://www.blizzard.com/wow/ui/"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 
 	<Script file="Binder.lua"/>
 
@@ -20,7 +20,7 @@
 		</Scripts>
 	</Frame>  
 
-	--Virtual Button for selection frame
+	<!-- Virtual Button for selection frame -->
 	<Button name = "BinderSelectionEntryTemplate" virtual="true">
 		<Size>
 		  <AbsDimension x="220" y="19" />
@@ -42,7 +42,7 @@
 	
 	
 	
-	--Main Frame used in Binder
+	<!-- Main Frame used in Binder -->
 	<Frame name="Binder_Frame" hidden="true" frameStrata="LOW" parent="UIParent" movable="true" enableMouse="true">
 		<Size>
 			<AbsDimension x="600" y="360"/>
@@ -92,7 +92,7 @@
 		</Frames>
 	</Frame>
 
-		--Small Title frame above normal Frame
+	<!-- Small Title frame above normal Frame -->
 	<Frame name="Binder_Title" hidden="true" frameStrata="LOW" parent="UIParent">
 		<Layers>
 			<Layer level="ARTWORK">
@@ -133,7 +133,7 @@
 	 
 	
 	 
-	 --Loading Frame
+	 <!-- Loading Frame -->
 	<Frame name="Loading_Frame" hidden="true" parent="UIParent">
 		<Size>
 			<AbsDimension x="300" y="400"/>
@@ -149,7 +149,7 @@
 	</Frame>
 
 	 
-		--Selection Frame
+		<!-- Selection Frame -->
 	<Frame name="Selection_Frame" hidden="true" parent="UIParent">
 		<Size>
 			<AbsDimension x="262" y="120"/>
@@ -287,7 +287,7 @@
 		</Scripts>
 	</Frame>
 	 
-		--Description Frame
+		<!-- Description Frame -->
 	<Frame name="Description_Frame" hidden="true" parent="UIParent">
 		<Size>
 			<AbsDimension x="256" y="60"/>
@@ -350,7 +350,7 @@
 		</Scripts>
 	</Frame>
 	 
-		--Button Frame
+		<!-- Button Frame -->
 	<Frame name="ApplyOrDelete_Frame" hidden="true" parent="UIParent">
 		<Size>
 			<AbsDimension x="270" y="125"/>
@@ -463,7 +463,7 @@
 		</Scripts>
 	 </Frame>
 	 
-	 			--Are you sure frame
+	 			<!-- Are you sure frame -->
 	 <Frame name="Update_Confirm_Frame" hidden="true" frameStrata="High" parent="UIParent">
 		<Size>
 			<AbsDimension x="350" y="95"/>
@@ -544,7 +544,7 @@
 
 
 	 
-			--Are you sure frame
+			<!-- Are you sure frame -->
 	 <Frame name="Areyousure_Frame" hidden="true" frameStrata="High" parent="UIParent">
 		<Size>
 			<AbsDimension x="250" y="95"/>
@@ -623,7 +623,7 @@
 	 
 	 
 	 
-	 --Creation Frame
+	 <!-- Creation Frame -->
 	<Frame name="Creation_Frame" hidden="true" parent="UIParent">
 		<Size>
 			<AbsDimension x="300" y="200"/>
@@ -680,7 +680,7 @@
 		</Scripts>
 	</Frame>
 	 
-		--Name Input Frame
+		<!-- Name Input Frame -->
 	<Frame name="Name_Input_Frame" parent="UIParent" hidden="true">
 		<Size>
 			<AbsDimension x="275" y="30"/>
@@ -727,7 +727,7 @@
 		</Scripts>
 	</Frame>
 	 
-		--Description Input Frame
+		<!-- Description Input Frame -->
 	<Frame name="Description_Input_Frame" parent="UIParent" hidden="true">
 		<Size>
 			<AbsDimension x="275" y="100"/>
@@ -776,7 +776,7 @@
 	 
 	 
 	 
-	 --Options Frame
+	 <!-- Options Frame -->
 	<Frame name="Options_Frame" hidden="true" toplevel="true" parent="UIParent">
 		<Size>
 			<AbsDimension x="300" y="160"/>
@@ -830,7 +830,7 @@
 				</Scripts>
 			</Button>
 			
-			-- The Radio Buttons --
+			<!-- The Radio Buttons -->
 			<!--
 			<CheckButton name="$parent_RadioButton1" inherits="SendMailRadioButtonTemplate">
 				<Anchors>
@@ -947,7 +947,7 @@
 	
 	
 	
-	--Divider Frame 1
+	<!-- Divider Frame 1 -->
 	<Frame name="Divider_Frame1" hidden="true" toplevel="false" parent="UIParent">
 		<Size>
 			<AbsDimension x="2" y="330"/>
@@ -969,7 +969,7 @@
 		</Scripts>
 	</Frame>
 	
-	--Divider Frame 2
+	<!-- Divider Frame 2 -->
 	<Frame name="Divider_Frame2" hidden="true" toplevel="false" parent="UIParent">
 		<Size>
 			<AbsDimension x="270" y="2"/>
@@ -997,10 +997,10 @@
 	
 	
 	
-	--Downloaded Code Thank you to DrShow for the format!!!
-	--Great Thanks to Gello at http://www.wowinterface.com/forums/showthread.php?t=2762 
+	<!-- Downloaded Code Thank you to DrShow for the format!!! -->
+	<!-- Great Thanks to Gello at http://www.wowinterface.com/forums/showthread.php?t=2762  -->
 		for his format which helped greatly in the making of the minimap button
-	--And also to Shurshik for the Hover over tooltip
+	<!-- And also to Shurshik for the Hover over tooltip -->
 	
 	<Button name="Binder_MinimapButton" enableMouse="true" movable="true" hidden="true" parent="UIParent">
 		<Size>
