@@ -999,7 +999,7 @@
 	
 	<!-- Downloaded Code Thank you to DrShow for the format!!! -->
 	<!-- Great Thanks to Gello at http://www.wowinterface.com/forums/showthread.php?t=2762  -->
-		for his format which helped greatly in the making of the minimap button
+	<!-- for his format which helped greatly in the making of the minimap button -->
 	<!-- And also to Shurshik for the Hover over tooltip -->
 	
 	<Button name="Binder_MinimapButton" enableMouse="true" movable="true" hidden="true" parent="UIParent">
