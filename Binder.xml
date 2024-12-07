@@ -1002,9 +1002,9 @@
 	<!-- for his format which helped greatly in the making of the minimap button -->
 	<!-- And also to Shurshik for the Hover over tooltip -->
 	
-	<Button name="Binder_MinimapButton" enableMouse="true" movable="true" hidden="true" parent="UIParent">
+	<Button name="Binder_MinimapButton" enableMouse="true" movable="true" hidden="true" parent="Minimap">
 		<Size>
-			<AbsDimension x="34.32" y="34.32"/>
+			<AbsDimension x="31" y="31"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
@@ -1013,21 +1013,21 @@
 			<Layer level="BACKGROUND">
 				<Texture name="Binder_MinimapButton_Icon" file="Interface\MacroFrame\MacroFrame-Icon">
 					<Size>
-						<AbsDimension x="21.84" y="21.84"/>
+						<AbsDimension x="17" y="17"/>
 					</Size>
 					<Anchors>
 						<Anchor point="TOPLEFT">
 							<Offset>
-								<AbsDimension x="5.6" y="-4.8"/>
+								<AbsDimension x="7" y="-7"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
 				</Texture>
 			</Layer>
-			<Layer level="BACKGROUND">
+			<Layer level="OVERLAY">
 				<Texture file="Interface\Minimap\MiniMap-TrackingBorder">
 					<Size>
-						<AbsDimension x="58.24" y="58.24"/>
+						<AbsDimension x="53" y="53"/>
 					</Size>
 					<Anchors>
 						<Anchor point="TOPLEFT"/>
@@ -1035,15 +1035,6 @@
 				</Texture>
 			</Layer>
 		</Layers>
-		<Frames>
-			<Frame name="Binder_MinimapButton_DraggingFrame" hidden="true">
-				<Scripts>
-					<OnUpdate>
-						Binder_MinimapButton_DraggingFrame_OnUpdate()
-					</OnUpdate>
-				</Scripts>
-			</Frame>
-		</Frames>
 		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
 		<Scripts>
 			<OnLoad>
@@ -1069,7 +1060,7 @@
 				self:UnlockHighlight()
 				Binder_MinimapButton_DraggingFrame:Hide()
 			</OnDragStop>
-			<OnClick> 
+			<OnClick>
 				Binder_Toggle()
 			</OnClick>
 		</Scripts>

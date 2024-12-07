@@ -256,46 +256,44 @@ end
 -- Minimap coding
 BinderMinimapSettings = {
 	Checkbox = nil;
-	xposition = 300;
-	yposition = 0; -- default position of the minimap icon
+	position = 45;
 }
 
 function Binder_MinimapButton_OnLoad()
-	Binder_MinimapButton:SetPoint("CENTER",BinderMinimapSettings.xposition,BinderMinimapSettings.yposition)
+	BinderMinimapSettings.position = BinderMinimapSettings.position or 45
+	Binder_MinimapButton_Reposition()
 end
 
 function Binder_MinimapButton_Reposition()
-	local xlim = (GetScreenWidth()/2)
-	local ylim = (GetScreenHeight()/2)
+	local angle = math.rad(BinderMinimapSettings.position)
+	local cos = math.cos(angle)
+	local sin = math.sin(angle)
+	local minimapShape = GetMinimapShape and GetMinimapShape() or "ROUND"
 	
+	local radius = 80
 	
-	if ( BinderMinimapSettings.xposition > xlim) then
-		BinderMinimapSettings.xposition = xlim
-		end
-	if ( BinderMinimapSettings.xposition < (-1) * xlim) then
-		BinderMinimapSettings.xposition = (-1) * xlim
-		end
-	if ( BinderMinimapSettings.yposition > ylim) then
-		BinderMinimapSettings.yposition = ylim
-		end
-	if ( BinderMinimapSettings.yposition < (-1) * ylim) then
-		BinderMinimapSettings.yposition = (-1) * ylim
-		end
+	local x = cos * radius
+	local y = sin * radius
 	
-	Binder_MinimapButton:SetPoint("CENTER",BinderMinimapSettings.xposition,BinderMinimapSettings.yposition)
+	Binder_MinimapButton:ClearAllPoints()
+	Binder_MinimapButton:SetPoint("CENTER", Minimap, "CENTER", x, y)
 end
 
 function Binder_MinimapButton_DraggingFrame_OnUpdate()
+	local xpos, ypos = GetCursorPosition()
+	local scale = Minimap:GetEffectiveScale()
+	local xmin, ymin = Minimap:GetCenter()
 	
-	local xcursor, ycursor = GetCursorPosition()
-
-	local xpos = (xcursor/UIParent:GetEffectiveScale()) - (GetScreenWidth()/2);
-	local ypos = (ycursor/UIParent:GetEffectiveScale()) - (GetScreenHeight()/2);
+	xpos = xpos / scale
+	ypos = ypos / scale
 	
-	BinderMinimapSettings.xposition = xpos
-	BinderMinimapSettings.yposition = ypos
+	local angle = math.deg(math.atan2(ypos - ymin, xpos - xmin))
+	if angle < 0 then 
+		angle = angle + 360 
+	end
 	
-	Binder_MinimapButton_Reposition() 
+	BinderMinimapSettings.position = angle
+	Binder_MinimapButton_Reposition()
 end
 
 function Binder_MinimapButton_OnEnter(self)
@@ -311,8 +309,7 @@ function Binder_MinimapButton_Details(tt, ldb)
 end
 
 function Minimap_Reset(arg1)
-	BinderMinimapSettings.xposition = 0
-	BinderMinimapSettings.yposition = 0
+	BinderMinimapSettings.position = 45
 	Binder_MinimapButton_Reposition()
 end
 
