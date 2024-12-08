@@ -1,16 +1,15 @@
 ## Interface: 30300
-## Title: Binder
-## Author: Tensai
-## Version: 2.4.0
-## Notes: Addon that allows user to create Keybinding Profiles, for easy switching between different sets. Supports up to 2 keys per action.
-## OptionalDeps: LibKeyBound-1.0
+## Title: |cff00ff00Binder|r
+## Title-ruRU: |cff00ff00Привязки|r
+## Notes-ruRU: Позволяет создавать профили привязок клавиш для быстрого переключения между разными наборами. Поддерживает до 2 клавиш на действие.
+## Version: 2.4.1
+## Author: accidev
+## X-Sirus: true
 ## SavedVariablesPerCharacter: BinderMinimapSettings
 ## SavedVariables: Binder_Settings
-
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\LibKeyBound-1.0\lib.xml
-
 
 Binder.xml
