@@ -1,9 +1,17 @@
 --With great thanks to fara.webeddie.com/frames for all the great tutorials that taught me xml.
 --Thanks to Jason L Perry and his work on the addon Keybound (Which has been completely included in this addon)
 
+local function IsSirusServer()
+    return select(4, GetBuildInfo()) >= 30300
+end
 
 function Binder_OnLoad(self)
-	out_frame("Binder is Loaded. Use /binder for help");
+    if not IsSirusServer() then
+        print("Binder: This addon requires Sirus client")
+        return
+    end
+    
+    out_frame("Binder загружен. Используйте /binder для помощи");
     self:RegisterEvent("ADDON_LOADED");
 
     SLASH_BINDER1 = "/binder";
@@ -97,6 +105,7 @@ Selection = false;
 
 --The Scrolling Frame
 function BinderScrollBar_Update()
+    if not Binder_Settings then return end
 
     local line; 
     local lineplusoffset;
@@ -365,6 +374,11 @@ function RemoveAllBinds()
 end
 
 function Load_Profile(profile_name)
+    if InCombatLockdown() then
+        out_frame("Нельзя загружать профили в бою")
+        return
+    end
+    
     Profile_Num = nil;
     for i = 1, Binder_Settings.ProfilesCreated do
         if ( profile_name == Binder_Settings.Profiles[i].Name )then
@@ -671,5 +685,13 @@ function f:PLAYER_LOGIN()
   self.PLAYER_LOGIN = nil
 end
 
+function SaveBinds()
+    if InCombatLockdown() then
+        out_frame("Нельзя сохранять привязки в бою")
+        return false
+    end
+    SaveBindings(2)
+    return true
+end
 
 
