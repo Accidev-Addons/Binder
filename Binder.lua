@@ -1,13 +1,10 @@
---With great thanks to fara.webeddie.com/frames for all the great tutorials that taught me xml.
---Thanks to Jason L Perry and his work on the addon Keybound (Which has been completely included in this addon)
-
 local function IsSirusServer()
     return select(4, GetBuildInfo()) >= 30300
 end
 
 function Binder_OnLoad(self)
     if not IsSirusServer() then
-        print("Binder: This addon requires Sirus client")
+        print("Binder: Этот аддон для Sirus")
         return
     end
     
@@ -22,13 +19,12 @@ function Binder_OnLoad(self)
         elseif command == "toggle" then
             Binder_Toggle();
         elseif command == "info" then
-            out_frame("Created by: Tensai");
-            out_frame("Last updated: 3/30/2014")
-            out_frame("Supports storing profiles of keybinds upto 2 keys per action.")
+            out_frame("Адаптировал: Accidev");
+            out_frame("Last updated: 21.11.2024")
         else
-            out_frame("Syntax for Binder slash commands:");
-            out_frame("  - /binder toggle - Toggles main binder window");
-            out_frame("  - /binder load (name) - Loads profile 'name', case sensitive");
+            out_frame("Команды для Binder:");
+            out_frame("  - /binder toggle - Переключает главное окно привязок");
+            out_frame("  - /binder load (name) - Загружает профиль 'name', чувствителен к регистру");
         end
     end
     LibKeyBound = LibStub('LibKeyBound-1.0')	
@@ -217,8 +213,8 @@ function Create_OnClick(arg1)
         namecheck = Binder_Settings.Profiles[i].Name
         if (Name_InputBox:GetText() == namecheck) then
             exists = true
-            out_frame("Profile '"..Binder_Settings.Profiles[i].Name.."' not created because it already exists.")
-            out("Profile '"..Binder_Settings.Profiles[i].Name.."' not created because it already exists.")
+            out_frame("Профиль '"..Binder_Settings.Profiles[i].Name.."' не создан, так как он уже существует.")
+            out("Профиль '"..Binder_Settings.Profiles[i].Name.."' не создан, так как он уже существует.")
             Name_InputBox:SetText("")
         end
     end
@@ -234,12 +230,12 @@ function Create_OnClick(arg1)
         --Updates the number of profiles created
         Binder_Settings.ProfilesCreated = Binder_Settings.ProfilesCreated + 1
 													
-        out_frame("Binder Profile Created: " .. Name_InputBox:GetText()) 
-        out("Profile Created: "..Binder_Settings.Profiles[Binder_Settings.ProfilesCreated].Name)
+        out_frame("Профиль привязок создан: " .. Name_InputBox:GetText()) 
+        out("Профиль создан: "..Binder_Settings.Profiles[Binder_Settings.ProfilesCreated].Name)
 			
-        --If something is written in the Description box when saved, this shows in the chat screen
+        --Если что-то написано в поле описания при сохранении, это отображается в чат-экране
         if (Description_InputBox:GetText() ~= "") then
-            out_frame("Description: " .. Description_InputBox:GetText())
+            out_frame("Описание: " .. Description_InputBox:GetText())
         end
 
         Name_InputBox:SetText("");
@@ -388,7 +384,7 @@ function Load_Profile(profile_name)
     end
 
     if (Profile_Num == nil)then
-        out_frame("Binder Profile '"..profile_name.."' not found.")
+        out_frame("Профиль привязок '"..profile_name.."' не найден.")
     else
         RemoveAllBinds();
 		
@@ -406,7 +402,7 @@ function Load_Profile(profile_name)
 	 
         SaveBindings(2)
         LoadBindings(2)
-        out_frame("Binder Profile "..profile_name.." has been loaded")
+        out_frame("Профиль привязок "..profile_name.." загружен")
     end
 end
 
@@ -443,8 +439,8 @@ function Update_Profile()
         Binder_Settings.Profiles[Currently_Selected_Profile_Num].The_Binds[i] = { ["TheAction"] = TheAction, ["BindingOne"] = BindingOne, ["BindingTwo"] = BindingTwo }													
     end
 
-    out_frame("Binder Profile: "..Binder_Settings.Profiles[Currently_Selected_Profile_Num].Name..", has been updated to current Binds.")
-    out("Binder Profile: "..Binder_Settings.Profiles[Currently_Selected_Profile_Num].Name..", has been updated to current Binds.")
+    out_frame("Профиль привязок: "..Binder_Settings.Profiles[Currently_Selected_Profile_Num].Name..", обновлен до текущих привязок.")
+    out("Профиль привязок: "..Binder_Settings.Profiles[Currently_Selected_Profile_Num].Name..", обновлен до текущих привязок.")
 
 end
 
@@ -523,7 +519,7 @@ function DeleteAll_Button_OnClick()
     Currently_Selected_Profile_Num = 0
     Binder_Settings.ProfilesCreated = 0
     BinderScrollBar_Update()
-    out_frame("All profiles are erased.")
+    out_frame("Все профили удалены.")
 end
 
 function DeleteAll_Button_OnUpdate()
