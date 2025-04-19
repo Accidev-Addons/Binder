@@ -2,6 +2,9 @@ local function IsSirusServer()
     return select(4, GetBuildInfo()) >= 30300
 end
 
+local E -- ElvUI engine
+local isElvUI = false
+
 function Binder_OnLoad(self)
     if not IsSirusServer() then
         print("Binder: Этот аддон для Sirus")
@@ -28,6 +31,18 @@ function Binder_OnLoad(self)
         end
     end
     LibKeyBound = LibStub('LibKeyBound-1.0')	
+
+    if IsAddOnLoaded("ElvUI") then
+        E = unpack(ElvUI)
+        isElvUI = true
+        
+        for i = 7, 10 do
+            for j = 1, 12 do
+                local buttonName = "ElvUI_Bar"..i.."Button"..j
+                f.BindMapping[buttonName] = "EXTRABAR"..i.."BUTTON"..j
+            end
+        end
+    end
 end
 
 function Binder_OnEvent(self, event, ...)
@@ -256,6 +271,23 @@ function Create_Binds()
         TheAction, BindingOne, BindingTwo = GetBinding(i)
         Binder_Settings.Profiles[NewProfileNum].The_Binds[i] = { ["TheAction"] = TheAction, ["BindingOne"] = BindingOne, ["BindingTwo"] = BindingTwo }	
     end
+	
+    if isElvUI then
+        for i = 7, 10 do
+            for j = 1, 12 do
+                local binding = "EXTRABAR"..i.."BUTTON"..j
+                TheAction = binding
+                BindingOne = GetBindingKey(binding)
+                BindingTwo = select(2, GetBindingKey(binding))
+                
+                Binder_Settings.Profiles[NewProfileNum].The_Binds[#Binder_Settings.Profiles[NewProfileNum].The_Binds + 1] = {
+                    ["TheAction"] = TheAction,
+                    ["BindingOne"] = BindingOne,
+                    ["BindingTwo"] = BindingTwo
+                }
+            end
+        end
+    end
 end
 
 -- Minimap coding
@@ -403,6 +435,13 @@ function Load_Profile(profile_name)
         SaveBindings(2)
         LoadBindings(2)
         out_frame("Профиль привязок "..profile_name.." загружен")
+        
+        if isElvUI and E.private.actionbar.enable then
+            local AB = E:GetModule("ActionBars")
+            if AB then
+                AB:UpdateButtonSettings()
+            end
+        end
     end
 end
 
