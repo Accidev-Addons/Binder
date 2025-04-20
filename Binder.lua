@@ -420,14 +420,15 @@ function Load_Profile(profile_name)
     else
         RemoveAllBinds();
 		
-        for i = 1, GetNumBindings() do 
+        for i = 1, #Binder_Settings.Profiles[Profile_Num].The_Binds do
             local TheAction = Binder_Settings.Profiles[Profile_Num].The_Binds[i].TheAction
             local BindingOne = Binder_Settings.Profiles[Profile_Num].The_Binds[i].BindingOne
-            local BindingTwo = Binder_Settings.Profiles[Profile_Num].The_Binds[i].BindingTwo			
-            if (BindingOne ~= nil)then
+            local BindingTwo = Binder_Settings.Profiles[Profile_Num].The_Binds[i].BindingTwo
+            
+            if BindingOne then
                 SetBinding(BindingOne, TheAction)
-            end				
-            if (BindingTwo ~= nil)then
+            end
+            if BindingTwo then
                 SetBinding(BindingTwo, TheAction)
             end
         end
