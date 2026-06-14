@@ -1,9 +1,8 @@
 ## Interface: 30300
 ## Title: |cff00ff00Binder|r
-## Title-ruRU: |cff00ff00Привязки|r
 ## Notes-ruRU: Позволяет создавать профили привязок клавиш для быстрого переключения между разными наборами. Поддерживает до 2 клавиш на действие.
 ## Version: 2.4.1
-## Author: accidev
+## Author: Tensai (порт Accidev)
 ## X-Sirus: true
 ## SavedVariablesPerCharacter: BinderMinimapSettings
 ## SavedVariables: Binder_Settings
