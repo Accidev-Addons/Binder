@@ -70,6 +70,14 @@ end
 
 local E -- ElvUI engine
 local isElvUI = false
+local elvBars = {2, 7, 8, 9, 10}
+local elvBindingMigration = {
+    ["ELVUIBAR6BUTTON"]  = "ELVUIBAR2BUTTON",
+    ["EXTRABAR7BUTTON"]  = "ELVUIBAR7BUTTON",
+    ["EXTRABAR8BUTTON"]  = "ELVUIBAR8BUTTON",
+    ["EXTRABAR9BUTTON"]  = "ELVUIBAR9BUTTON",
+    ["EXTRABAR10BUTTON"] = "ELVUIBAR10BUTTON",
+}
 
 function Binder_OnLoad(self)
     if not IsSirusServer() then
@@ -101,11 +109,11 @@ function Binder_OnLoad(self)
     if IsAddOnLoaded("ElvUI") then
         E = unpack(ElvUI)
         isElvUI = true
-        
-        for i = 7, 10 do
+
+        for _, i in ipairs(elvBars) do
             for j = 1, 12 do
                 local buttonName = "ElvUI_Bar"..i.."Button"..j
-                f.BindMapping[buttonName] = "EXTRABAR"..i.."BUTTON"..j
+                f.BindMapping[buttonName] = "ELVUIBAR"..i.."BUTTON"..j
             end
         end
     end
@@ -339,9 +347,9 @@ function Create_Binds()
     end
 	
     if isElvUI then
-        for i = 7, 10 do
+        for _, i in ipairs(elvBars) do
             for j = 1, 12 do
-                local binding = "EXTRABAR"..i.."BUTTON"..j
+                local binding = "ELVUIBAR"..i.."BUTTON"..j
                 TheAction = binding
                 BindingOne = GetBindingKey(binding)
                 BindingTwo = select(2, GetBindingKey(binding))
@@ -467,6 +475,20 @@ function RemoveAllBinds()
     end
 end
 
+local function Migrate_Binding(TheAction)
+    if (type(TheAction) ~= "string") then
+        return TheAction
+    end
+
+    for old, new in pairs(elvBindingMigration) do
+        if (TheAction:sub(1, #old) == old) then
+            return new..TheAction:sub(#old + 1)
+        end
+    end
+
+    return TheAction
+end
+
 function Load_Profile(profile_name)
     if InCombatLockdown() then
         out_frame("Нельзя загружать профили в бою")
@@ -487,7 +509,7 @@ function Load_Profile(profile_name)
         RemoveAllBinds();
 		
         for i = 1, #Binder_Settings.Profiles[Profile_Num].The_Binds do
-            local TheAction = Binder_Settings.Profiles[Profile_Num].The_Binds[i].TheAction
+            local TheAction = Migrate_Binding(Binder_Settings.Profiles[Profile_Num].The_Binds[i].TheAction)
             local BindingOne = Binder_Settings.Profiles[Profile_Num].The_Binds[i].BindingOne
             local BindingTwo = Binder_Settings.Profiles[Profile_Num].The_Binds[i].BindingTwo
             
