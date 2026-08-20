@@ -379,8 +379,7 @@ function Binder_MinimapButton_Reposition()
     local angle = math.rad(BinderMinimapSettings.position)
     local cos = math.cos(angle)
     local sin = math.sin(angle)
-    local minimapShape = GetMinimapShape and GetMinimapShape() or "ROUND"
-	
+
     local radius = 80
 	
     local x = cos * radius
@@ -406,6 +405,10 @@ function Binder_MinimapButton_DraggingFrame_OnUpdate()
     BinderMinimapSettings.position = angle
     Binder_MinimapButton_Reposition()
 end
+
+local draggingFrame = CreateFrame("Frame", "Binder_MinimapButton_DraggingFrame")
+draggingFrame:Hide()
+draggingFrame:SetScript("OnUpdate", Binder_MinimapButton_DraggingFrame_OnUpdate)
 
 function Binder_MinimapButton_OnEnter(self)
     if (self.dragging) then
