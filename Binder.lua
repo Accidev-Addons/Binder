@@ -333,7 +333,6 @@ function Create_OnClick(arg1)
         BinderScrollBar_Update()
     end
     Name_InputBox:ClearFocus()
-    SaveBindings(2)
 end
 
 
@@ -463,7 +462,7 @@ end
 
 function Defaults_OnClick(arg1)
     LoadBindings(0)
-    SaveBindings(2)
+    SaveBindings(GetCurrentBindingSet())
 end
 
 function Apply_OnClick()
@@ -524,8 +523,8 @@ function Load_Profile(profile_name)
             end
         end
 	 
-        SaveBindings(2)
-        LoadBindings(2)
+        SaveBindings(GetCurrentBindingSet())
+        LoadBindings(GetCurrentBindingSet())
         out_frame("Профиль привязок "..profile_name.." загружен")
         
         if isElvUI and E.private.actionbar.enable then
