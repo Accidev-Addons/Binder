@@ -336,15 +336,14 @@ function Create_OnClick(arg1)
 end
 
 
-function Create_Binds()
+local function Scan_Binds(The_Binds)
     local TheAction, BindingOne, BindingTwo;
-    local NewProfileNum = Binder_Settings.ProfilesCreated +1;
-	
-    for i = 1, GetNumBindings() do									
+
+    for i = 1, GetNumBindings() do
         TheAction, BindingOne, BindingTwo = GetBinding(i)
-        Binder_Settings.Profiles[NewProfileNum].The_Binds[i] = { ["TheAction"] = TheAction, ["BindingOne"] = BindingOne, ["BindingTwo"] = BindingTwo }	
+        The_Binds[i] = { ["TheAction"] = TheAction, ["BindingOne"] = BindingOne, ["BindingTwo"] = BindingTwo }
     end
-	
+
     if isElvUI then
         for _, i in ipairs(elvBars) do
             for j = 1, 12 do
@@ -352,8 +351,8 @@ function Create_Binds()
                 TheAction = binding
                 BindingOne = GetBindingKey(binding)
                 BindingTwo = select(2, GetBindingKey(binding))
-                
-                Binder_Settings.Profiles[NewProfileNum].The_Binds[#Binder_Settings.Profiles[NewProfileNum].The_Binds + 1] = {
+
+                The_Binds[#The_Binds + 1] = {
                     ["TheAction"] = TheAction,
                     ["BindingOne"] = BindingOne,
                     ["BindingTwo"] = BindingTwo
@@ -361,6 +360,12 @@ function Create_Binds()
             end
         end
     end
+end
+
+function Create_Binds()
+    local NewProfileNum = Binder_Settings.ProfilesCreated +1;
+
+    Scan_Binds(Binder_Settings.Profiles[NewProfileNum].The_Binds)
 end
 
 -- Minimap coding
@@ -562,12 +567,8 @@ end
 -- Stuff for the Update Button
 
 function Update_Profile()
-    local TheAction, BindingOne, BindingTwo;
-	
-    for i = 1, GetNumBindings() do
-        TheAction, BindingOne, BindingTwo = GetBinding(i)
-        Binder_Settings.Profiles[Currently_Selected_Profile_Num].The_Binds[i] = { ["TheAction"] = TheAction, ["BindingOne"] = BindingOne, ["BindingTwo"] = BindingTwo }													
-    end
+    Binder_Settings.Profiles[Currently_Selected_Profile_Num].The_Binds = {}
+    Scan_Binds(Binder_Settings.Profiles[Currently_Selected_Profile_Num].The_Binds)
 
     out_frame("Профиль привязок: "..Binder_Settings.Profiles[Currently_Selected_Profile_Num].Name..", обновлен до текущих привязок.")
     out("Профиль привязок: "..Binder_Settings.Profiles[Currently_Selected_Profile_Num].Name..", обновлен до текущих привязок.")
@@ -648,6 +649,8 @@ function DeleteAll_Button_OnClick()
     end
     Currently_Selected_Profile_Num = 0
     Binder_Settings.ProfilesCreated = 0
+    ProfileName_OnButton = ""
+    Selection = false
     BinderScrollBar_Update()
     out_frame("Все профили удалены.")
 end
