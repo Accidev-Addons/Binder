@@ -1,4 +1,3 @@
--- Создаем фрейм в начале файла
 local f = CreateFrame("frame")
 
 f.BindMapping = {
@@ -64,11 +63,9 @@ f.BindMapping = {
     MultiBarRightButton12       = "MULTIACTIONBAR3BUTTON12",
 }
 
-local function IsSirusServer()
-    return select(4, GetBuildInfo()) >= 30300
-end
+local LibKeyBound = LibStub:GetLibrary("LibKeyBound-1.0")
 
-local E -- ElvUI engine
+local E
 local isElvUI = false
 local elvBars = {2, 7, 8, 9, 10}
 local elvBindingMigration = {
@@ -80,11 +77,6 @@ local elvBindingMigration = {
 }
 
 function Binder_OnLoad(self)
-    if not IsSirusServer() then
-        print("Binder: Этот аддон для Sirus")
-        return
-    end
-    
     out_frame("Binder загружен. Используйте /binder для помощи");
     self:RegisterEvent("ADDON_LOADED");
 
@@ -104,7 +96,6 @@ function Binder_OnLoad(self)
             out_frame("  - /binder load (name) - Загружает профиль 'name', чувствителен к регистру");
         end
     end
-    LibKeyBound = LibStub('LibKeyBound-1.0')	
 
     if IsAddOnLoaded("ElvUI") then
         E = unpack(ElvUI)
@@ -136,6 +127,25 @@ function out(text)
     UIErrorsFrame:AddMessage(text, 1.0, 1.0, 0, 1, 10)
 end
 	
+function Binder_HideAll()
+    Binder_Title:Hide();
+    Description_InputBox:Hide();
+    Name_Input_Frame:Hide();
+    ApplyOrDelete_Frame:Hide();
+    Description_Frame:Hide();
+    Selection_Frame:Hide();
+    Loading_Frame:Hide();
+    Options_Frame:Hide();
+    Creation_Frame:Hide();
+    Description_Input_Frame:Hide();
+    Divider_Frame1:Hide();
+    Divider_Frame2:Hide();
+    Update_Confirm_Frame:Hide();
+    Areyousure_Frame:Hide();
+    Name_InputBox:SetText("");
+    Description_InputBox:SetText("");
+end
+
 function Binder_Toggle()
     local frame = getglobal("Binder_Frame")
     Selection = false;
@@ -143,20 +153,7 @@ function Binder_Toggle()
         if (  frame:IsVisible()  ) then
             --When the Frame Goes away
             frame:Hide();
-            Binder_Title:Hide();
-            Description_InputBox:Hide();
-            Name_Input_Frame:Hide();
-            ApplyOrDelete_Frame:Hide();
-            Description_Frame:Hide();
-            Selection_Frame:Hide();
-            Loading_Frame:Hide();
-            Options_Frame:Hide();
-            Creation_Frame:Hide();
-            Description_Input_Frame:Hide();
-            Divider_Frame1:Hide();
-            Divider_Frame2:Hide();
-            Name_InputBox:SetText("");
-            Description_InputBox:SetText("");
+            Binder_HideAll();
         else
             --When the Frame is Shown again
             frame:Show();
@@ -244,9 +241,7 @@ function ProfileSelection_OnClick(self)
     ProfileName_OnButton = self:GetText()
 	
     --Sets Currently_Selected_Profile_Num to the profile number on button you pushed
-    for i = 1, Binder_Settings.ProfilesCreated do 
-        if ( ProfileName_OnButton ~= Binder_Settings.Profiles[i].Name )then
-        end
+    for i = 1, Binder_Settings.ProfilesCreated do
         if ( ProfileName_OnButton == Binder_Settings.Profiles[i].Name )then
             Currently_Selected_Profile_Num = i
         end
@@ -299,7 +294,7 @@ function Create_OnClick(arg1)
     local exists = false;
 	
     for i = 1, Binder_Settings.ProfilesCreated do 
-        namecheck = Binder_Settings.Profiles[i].Name
+        local namecheck = Binder_Settings.Profiles[i].Name
         if (Name_InputBox:GetText() == namecheck) then
             exists = true
             out_frame("Профиль '"..Binder_Settings.Profiles[i].Name.."' не создан, так как он уже существует.")
@@ -476,9 +471,9 @@ end
 
 function RemoveAllBinds()
     for i = 1, GetNumBindings() do
-        command, key1, key2 = GetBinding(i);
+        local command, key1, key2 = GetBinding(i);
         if (key1) then SetBinding(key1); end
-        if (key2) then SetBinding(key2); end	
+        if (key2) then SetBinding(key2); end
     end
 end
 
@@ -502,7 +497,7 @@ function Load_Profile(profile_name)
         return
     end
     
-    Profile_Num = nil;
+    local Profile_Num = nil;
     for i = 1, Binder_Settings.ProfilesCreated do
         if ( profile_name == Binder_Settings.Profiles[i].Name )then
             Profile_Num = i;
@@ -612,7 +607,7 @@ end
 
 
 function Delete_OnClick(arg1)
-    out_frame("Profile "..ProfileName_OnButton.." was deleted")
+    out_frame("Профиль '"..ProfileName_OnButton.."' удален.")
     if (Currently_Selected_Profile_Num < Binder_Settings.ProfilesCreated)then
         for i = Currently_Selected_Profile_Num, Binder_Settings.ProfilesCreated-1 do
             Binder_Settings.Profiles[i] = Binder_Settings.Profiles[i + 1]
@@ -668,6 +663,10 @@ function DeleteAll_Button_OnUpdate()
     end
 end
 
+function Binder_KeyBound_Toggle()
+    LibKeyBound:Toggle()
+end
+
 function Close_Button_Details(tt, ldb)
     tt:SetText("Закрыть")
 end
@@ -683,8 +682,6 @@ end
 
 --**************************************************************************************
 
-
-local LibKeyBound = LibStub:GetLibrary("LibKeyBound-1.0")
 
 f:RegisterEvent("PLAYER_LOGIN")
 
@@ -746,15 +743,6 @@ function f:PLAYER_LOGIN()
 
   self:UnregisterEvent("PLAYER_LOGIN")
   self.PLAYER_LOGIN = nil
-end
-
-function SaveBinds()
-    if InCombatLockdown() then
-        out_frame("Нельзя сохранять привязки в бою")
-        return false
-    end
-    SaveBindings(2)
-    return true
 end
 
 

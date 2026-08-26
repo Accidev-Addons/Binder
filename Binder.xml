@@ -65,6 +65,7 @@
 			<OnMouseDown> self:StartMoving(); </OnMouseDown>
 			<OnMouseUp> self:StopMovingOrSizing(); </OnMouseUp>
 			<OnDragStop> self:StopMovingOrSizing(); </OnDragStop>
+			<OnHide> Binder_HideAll(); </OnHide>
 			<OnLoad>
 				tinsert(UISpecialFrames,self:GetName());
 			</OnLoad>
@@ -96,7 +97,7 @@
 	<Frame name="Binder_Title" hidden="true" frameStrata="LOW" parent="UIParent">
 		<Layers>
 			<Layer level="ARTWORK">
-				<FontString name="$parent_Text1" inherits="GameFontNormal" text="Binder 2.4.0">
+				<FontString name="$parent_Text1" inherits="GameFontNormal" text="Binder 2.4.1">
 					<Anchors>
 						<Anchor point="CENTER"></Anchor>
 					</Anchors>
@@ -124,11 +125,6 @@
 				<AbsInset left="5" right="5" top="5" bottom="5"/>
 			</BackgroundInsets>
 		</Backdrop>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	 
 	
@@ -141,11 +137,6 @@
 		<Anchors>
 			<Anchor point="TOPLEFT" relativeTo="Binder_Frame"/>
 		</Anchors>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 
 	 
@@ -280,11 +271,6 @@
 			</Button>
 			
 		</Frames>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	 
 		<!-- Description Frame -->
@@ -340,14 +326,6 @@
 	      </FontString>
 			</Layer>
 		</Layers>
-		<Scripts>
-			<OnUpdate>
-				Description_Update()
-			</OnUpdate>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	 
 		<!-- Button Frame -->
@@ -456,11 +434,6 @@
 			</Button>
 
 		</Frames>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	 </Frame>
 	 
 	 			<!-- Are you sure frame -->
@@ -482,11 +455,6 @@
 				<AbsInset left="10" right="10" top="10" bottom="10"/>
 			</BackgroundInsets>
 		</Backdrop>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 		<Frames>
 			<Button name="UpdateConfirm_Yes" inherits="UIPanelButtonTemplate" text="Да">
 				<Size>
@@ -563,11 +531,6 @@
 				<AbsInset left="10" right="10" top="10" bottom="10"/>
 			</BackgroundInsets>
 		</Backdrop>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 		<Frames>
 			<Button name="Areyousure_Yes" inherits="UIPanelButtonTemplate" text="Да">
 				<Size>
@@ -673,11 +636,6 @@
 				</Scripts>
 			</Button>
 		</Frames>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	 
 		<!-- Name Input Frame -->
@@ -720,11 +678,6 @@
 				</Anchors>           
 			</EditBox>
 		</Frames>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	 
 		<!-- Description Input Frame -->
@@ -767,11 +720,6 @@
 				</Anchors>           
 			</EditBox>
 		</Frames>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	 
 	 
@@ -797,16 +745,13 @@
           </Anchor>
         </Anchors>      
         <Scripts>
-          <OnLoad>
-            getglobal(self:GetName().."Text"):SetText("Hide Minimap Button");
-          </OnLoad>
 					<OnUpdate>
 						Minimap_Checkbox_OnUpdate()
 					</OnUpdate>
 				</Scripts>
     	</CheckButton>
 		
-			<Button name="Minimap_Reset_Button" inherits="UIPanelButtonTemplate" text="Reset">
+			<Button name="Minimap_Reset_Button" inherits="UIPanelButtonTemplate" text="Сброс">
 				<Size>
 					<AbsDimension x="100" y="30"/>
 				</Size>
@@ -918,7 +863,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						LibKeyBound:Toggle()
+						Binder_KeyBound_Toggle()
 					</OnClick>
 				</Scripts>
 			</Button>			
@@ -937,11 +882,6 @@
 				</FontString>
 			</Layer>
 		</Layers>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	 
 	
@@ -962,11 +902,6 @@
 				</Texture> 
 			</Layer>
 		</Layers>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	
 	<!-- Divider Frame 2 -->
@@ -988,11 +923,6 @@
 				</Texture> 
 			</Layer>
 		</Layers>
-		<Scripts>
-			<OnLoad>
-				tinsert(UISpecialFrames,self:GetName());
-			</OnLoad>
-		</Scripts>
 	</Frame>
 	
 	
