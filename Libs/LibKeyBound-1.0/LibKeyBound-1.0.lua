@@ -473,7 +473,7 @@ function LibKeyBound.Binder:OnKeyDown(key)
 
 	local openChatKey = GetBindingKey('OPENCHAT')
 	if openChatKey and key == openChatKey then
-		ChatFrameEditBox:Show()
+		ChatEdit_ActivateChat(ChatEdit_ChooseBoxForSend())
 		return
 	end
 
